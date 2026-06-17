@@ -11,8 +11,6 @@ else
   PM="npm"
 fi
 
-echo "📦 Usando: $PM"
-
 if [ "$PM" = "npm" ]; then
   npx commitlint --edit "$1"
 
