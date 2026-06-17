@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+echo "🚀 Rodando testes e build antes do push..."
+
+pnpm test || { echo "❌ Testes falharam"; exit 1; }
+
+pnpm build || { echo "❌ Build falhou"; exit 1; }
+
+echo "✅ Tudo certo! Enviando..."
