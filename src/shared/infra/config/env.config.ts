@@ -6,6 +6,7 @@ const envSchema = z.object({
 	JWT_SECRET: z.uuid({
 		message: "JWT_SECRET deve ser um uuid válido.",
 	}),
+	DATABASE_URL: z.string(),
 });
 
 export const env = envSchema.parse(process.env);
