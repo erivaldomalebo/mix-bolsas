@@ -1,8 +1,30 @@
 #!/usr/bin/env sh
+
 echo "🚀 Rodando testes e build antes do push..."
 
-pnpm test || { echo "❌ Testes falharam"; exit 1; }
+# Detectar package manager pelo lockfile
+if [ -f "pnpm-lock.yaml" ]; then
+  PM="pnpm"
+elif [ -f "yarn.lock" ]; then
+  PM="yarn"
+elif [ -f "bun.lockb" ] || [ -f "bun.lock" ]; then
+  PM="bun"
+else
+  PM="npm"
+fi
 
-pnpm build || { echo "❌ Build falhou"; exit 1; }
+echo "📦 Usando: $PM"
+
+# Test
+$PM test || { echo "❌ Testes falharam"; exit 1; }
+
+# Build
+if [ "$PM" = "npm" ]; then
+  npm run build
+elif [ "$PM" = "bun" ]; then
+  bun run build
+else
+  $PM build
+fi
 
 echo "✅ Tudo certo! Enviando..."

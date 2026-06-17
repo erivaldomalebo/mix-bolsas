@@ -1,5 +1,26 @@
+#!/usr/bin/env sh
 echo "Running commit msg hooks (Conventional commit)..."
-#!/bin/sh
-pnpm dlx commitlint --edit "$1"
+
+if [ -f "pnpm-lock.yaml" ]; then
+  PM="pnpm"
+elif [ -f "yarn.lock" ]; then
+  PM="yarn"
+elif [ -f "bun.lockb" ] || [ -f "bun.lock" ]; then
+  PM="bun"
+else
+  PM="npm"
+fi
+
+echo "📦 Usando: $PM"
+
+if [ "$PM" = "npm" ]; then
+  npx commitlint --edit "$1"
+
+elif [ "$PM" = "bun" ]; then
+  bunx commitlint --edit "$1"
+
+else
+  $PM dlx commitlint --edit "$1"
+fi
 
 echo "Done."
