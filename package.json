@@ -10,6 +10,10 @@
 		"lint": "biome lint --write .",
 		"biome:check": "biome check --write .",
 		"prepare": "husky",
+		"migrate": "prisma migrate deploy",
+		"generate": "prisma generate",
+		"seed": "prisma db seed",
+		"deploy": "prisma generate && prisma migrate deploy && prisma db seed && tsup",
 		"test": "vitest"
 	},
 	"keywords": [],

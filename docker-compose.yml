@@ -9,7 +9,7 @@ services:
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: bcbc
-      POSTGRES_DB: boilerplate_db
+      POSTGRES_DB: bolsas_db
 
     ports:
       - "5432:5432"

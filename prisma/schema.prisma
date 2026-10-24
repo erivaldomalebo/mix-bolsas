@@ -12,13 +12,26 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
-  id String @id @default(cuid())
-  name String
-  email String @unique
+enum Status {
+  pending
+  approved
+  declined
+}
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+model Transaction {
+  id            String   @id @default(uuid())
+  amount        Int
+  currency      String   @default("AOA")
+  status        Status
+  refusalReason String?
+  paymentMethod String // "multicaixa_express" ou "reference"
+  studentId     String
+  scholarshipId String
+  phoneNumber   String? // Opcional (usado no Multicaixa Express)
+  entity        String? // Opcional (usado em pagamentos por referência)
+  reference     String? // Opcional (usado em pagamentos por referência)
+  createdAt     DateTime @default(now())
+  UpdatedAt     DateTime @updatedAt
 
-  @@map("users")
+  @@map("transactions")
 }
